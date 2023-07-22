@@ -58,8 +58,12 @@ class KabupatenController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Kabupaten $kabupaten)
+    public function show(int $id)
     {
+        $kabupaten = Kabupaten::find($id);
+        if (!$kabupaten) {
+            return response()->json(['data' => null, 'message' => 'Not Found!'], 404);
+        }
         $kabupaten->load('provinsi');
         return response()->json(['data' => $kabupaten, 'message' => 'success']);
     }

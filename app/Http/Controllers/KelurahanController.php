@@ -70,8 +70,12 @@ class KelurahanController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Kelurahan $kelurahan)
+    public function show($id)
     {
+        $kelurahan = Kelurahan::find($id);
+        if (!$kelurahan) {
+            return response()->json(['data' => null, 'message' => 'Not Found!'], 404);
+        }
         $kelurahan->load('kecamatan.kabupaten.provinsi');
         return response()->json(['data' => $kelurahan, 'message' => 'success']);
     }

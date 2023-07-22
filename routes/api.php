@@ -24,13 +24,13 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 
 Route::get('provinsi', [ProvinsiController::class, 'index'])->name('provinsi.index');
-Route::get('provinsi/{provinsi}', [ProvinsiController::class, 'show'])->name('provinsi.show');
+Route::get('provinsi/{id}', [ProvinsiController::class, 'show'])->name('provinsi.show');
 
 Route::get('kabupaten', [KabupatenController::class, 'index'])->name('kabupaten.index');
-Route::get('kabupaten/{kabupaten}', [KabupatenController::class, 'show'])->name('kabupaten.show');
+Route::get('kabupaten/{id}', [KabupatenController::class, 'show'])->name('kabupaten.show');
 
 Route::get('kecamatan', [KecamatanController::class, 'index'])->name('kecamatan.index');
-Route::get('kecamatan/{kecamatan}', [KecamatanController::class, 'show'])->name('kecamatan.show');
+Route::get('kecamatan/{id}', [KecamatanController::class, 'show'])->name('kecamatan.show');
 
 Route::get('kelurahan', [KelurahanController::class, 'index'])->name('kelurahan.index');
-Route::get('kelurahan/{kelurahan}', [KelurahanController::class, 'show'])->name('kelurahan.show');
+Route::get('kelurahan/{id}', [KelurahanController::class, 'show'])->name('kelurahan.show');

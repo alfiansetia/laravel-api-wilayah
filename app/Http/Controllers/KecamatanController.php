@@ -61,8 +61,12 @@ class KecamatanController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Kecamatan $kecamatan)
+    public function show($id)
     {
+        $kecamatan = Kecamatan::find($id);
+        if (!$kecamatan) {
+            return response()->json(['data' => null, 'message' => 'Not Found!'], 404);
+        }
         $kecamatan->load('kabupaten.provinsi');
         return response()->json(['data' => $kecamatan, 'message' => 'success']);
     }
