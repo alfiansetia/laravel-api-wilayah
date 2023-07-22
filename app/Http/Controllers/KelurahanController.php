@@ -10,10 +10,45 @@ class KelurahanController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $data = Kelurahan::paginate(10);
-        return response()->json($data);
+        $limit = 10;
+        $data = Kelurahan::query();
+        if ($request->filled('limit') && is_numeric($request->limit)) {
+            $limit = intval($request->limit);
+        }
+        if ($request->filled('name')) {
+            $data->where('name', 'like', "%$request->name%");
+        }
+        if ($request->filled('code')) {
+            $data->where('code', $request->code);
+        }
+        if ($request->filled('full_code')) {
+            $data->where('full_code', $request->full_code);
+        }
+        if ($request->filled('pos_code')) {
+            $data->where('pos_code', $request->pos_code);
+        }
+        if ($request->filled('kecamatan_id')) {
+            $data->where('kecamatan_id', $request->kecamatan_id);
+        }
+        if ($request->filled('code_kecamatan')) {
+            $data->whereRelation('kecamatan', 'code', $request->code_kecamatan);
+        }
+        if ($request->filled('kabupaten_id')) {
+            $data->whereRelation('kecamatan', 'kabupaten_id', $request->kabupaten_id);
+        }
+        if ($request->filled('code_kabupaten')) {
+            $data->whereRelation('kecamatan.kabupaten', 'code', $request->code_kabupaten);
+        }
+        if ($request->filled('provinsi_id')) {
+            $data->whereRelation('kecamatan.kabupaten', 'provinsi_id', $request->provinsi_id);
+        }
+        if ($request->filled('code_provinsi')) {
+            $data->whereRelation('kecamatan.kabupaten.provinsi', 'code', $request->code_provinsi);
+        }
+        $result = $data->with('kecamatan.kabupaten.provinsi')->paginate($limit);
+        return response()->json($result);
     }
 
     /**
@@ -37,7 +72,8 @@ class KelurahanController extends Controller
      */
     public function show(Kelurahan $kelurahan)
     {
-        //
+        $kelurahan->load('kecamatan.kabupaten.provinsi');
+        return response()->json(['data' => $kelurahan, 'message' => 'success']);
     }
 
     /**

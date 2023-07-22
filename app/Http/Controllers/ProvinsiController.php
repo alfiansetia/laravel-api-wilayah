@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Kelurahan;
 use App\Models\Provinsi;
 use Illuminate\Http\Request;
 
@@ -10,10 +11,27 @@ class ProvinsiController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $data = Provinsi::paginate(10);
-        return response()->json($data);
+        $limit = 10;
+        $data = Provinsi::query();
+        if ($request->filled('limit') && is_numeric($request->limit)) {
+            $limit = intval($request->limit);
+        }
+        if ($request->filled('type')) {
+            $data->where('type', $request->type);
+        }
+        if ($request->filled('name')) {
+            $data->where('name', 'like', "%$request->name%");
+        }
+        if ($request->filled('code')) {
+            $data->where('code', $request->code);
+        }
+        if ($request->filled('full_code')) {
+            $data->where('full_code', $request->full_code);
+        }
+        $result = $data->paginate($limit);
+        return response()->json($result);
     }
 
     /**
@@ -37,7 +55,7 @@ class ProvinsiController extends Controller
      */
     public function show(Provinsi $provinsi)
     {
-        //
+        return response()->json(['data' => $provinsi, 'message' => 'success']);
     }
 
     /**

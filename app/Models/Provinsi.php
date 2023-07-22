@@ -12,4 +12,9 @@ class Provinsi extends Model
     protected $table = 'provinsis';
     protected $guarded = [];
     public $timestamps = false;
+
+    public function kabupaten()
+    {
+        return $this->hasMany(Kabupaten::class);
+    }
 }

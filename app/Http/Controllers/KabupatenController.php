@@ -10,10 +10,33 @@ class KabupatenController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $data = Kabupaten::paginate(10);
-        return response()->json($data);
+        $limit = 10;
+        $data = Kabupaten::query();
+        if ($request->filled('limit') && is_numeric($request->limit)) {
+            $limit = intval($request->limit);
+        }
+        if ($request->filled('type')) {
+            $data->where('type', $request->type);
+        }
+        if ($request->filled('name')) {
+            $data->where('name', 'like', "%$request->name%");
+        }
+        if ($request->filled('code')) {
+            $data->where('code', $request->code);
+        }
+        if ($request->filled('full_code')) {
+            $data->where('full_code', $request->full_code);
+        }
+        if ($request->filled('provinsi_id')) {
+            $data->where('provinsi_id', $request->provinsi_id);
+        }
+        if ($request->filled('code_provinsi')) {
+            $data->whereRelation('provinsi', 'code', $request->code_provinsi);
+        }
+        $result = $data->with('provinsi')->withCount('kecamatan')->paginate($limit);
+        return response()->json($result);
     }
 
     /**
@@ -37,7 +60,8 @@ class KabupatenController extends Controller
      */
     public function show(Kabupaten $kabupaten)
     {
-        //
+        $kabupaten->load('provinsi');
+        return response()->json(['data' => $kabupaten, 'message' => 'success']);
     }
 
     /**
