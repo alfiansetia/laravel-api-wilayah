@@ -53,15 +53,6 @@ class ProvinsiController extends Controller
     /**
      * Display the specified resource.
      */
-    // public function show($id)
-    // {
-    //     $provinsi = Provinsi::find($id);
-    //     if (!$provinsi) {
-    //         return response()->json(['data' => null, 'message' => 'Not Found!']);
-    //     }
-    //     return response()->json(['data' => $provinsi, 'message' => 'success']);
-    // }
-
     public function show($id)
     {
         $provinsi = Provinsi::find($id);

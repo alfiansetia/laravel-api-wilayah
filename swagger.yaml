@@ -1,0 +1,319 @@
+openapi: 3.0.0
+info:
+  version: "1.0.0"
+  title: API Wilayah
+  
+tags:
+  - name: provinsi
+    description: Mendapatkan daftar provinsi
+  - name: kabupaten
+    description: Mendapatkan daftar kabupaten
+  - name: keccamatan
+    description: Mendapatkan daftar kecamatan
+  - name: kelurahan
+    description: Mendapatkan daftar kelurahan
+  
+
+paths:
+
+  /api/provinsi:
+    get:
+      tags:
+        - provinsi
+      summary: Mendapatkan daftar provinsi
+      parameters:
+        - name: limit
+          in: query
+          description: Batasi jumlah data yang diambil (opsional)
+          schema:
+            type: integer
+            default : 10
+        - name: page
+          in: query
+          description: Mengambil data di page ke- (opsional)
+          schema:
+            type: integer
+            default: 1
+        - name: name
+          in: query
+          description: Cari provinsi berdasarkan %nama% (opsional)
+          schema:
+            type: string
+        - name: code
+          in: query
+          description: Cari provinsi berdasarkan code (opsional)
+          schema:
+            type: string
+        - name: full_code
+          in: query
+          description: Cari provinsi berdasarkan full_code (opsional)
+          schema:
+            type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseData'
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/Provinsi"
+
+  /api/provinsi/{id}:
+    get:
+      tags:
+        - provinsi
+      summary: Mendapatkan provinsi berdasarkan ID
+      parameters:
+        - name: id
+          in: path
+          description: ID provinsi
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: "#/components/schemas/Provinsi"  # Update the reference
+                  message:
+                    type: string
+                    description: Pesan sukses
+        "404":
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: string  # Perbaiki tipe data menjadi string
+                    description: Data tidak ditemukan
+                  message:
+                    type: string
+                    description: Pesan bahwa data tidak ditemukan
+  
+  /api/kabupaten:
+    get:
+      tags:
+        - kabupaten
+      summary: Mendapatkan daftar kabupaten
+      parameters:
+        - name: limit
+          in: query
+          description: Batasi jumlah data yang diambil (opsional)
+          schema:
+            type: integer
+            default : 10
+        - name: page
+          in: query
+          description: Mengambil data di page ke- (opsional)
+          schema:
+            type: integer
+            default: 1
+        - name: type
+          in: query
+          description: Cari kabupaten berdasarkan type (opsional)
+          schema:
+            type: string
+            enum:
+              - Kota
+              - Kabupaten
+            description: Tipe kabupaten (Harus "Kota" atau "Kabupaten")
+        - name: name
+          in: query
+          description: Cari kabupaten berdasarkan %nama% (opsional)
+          schema:
+            type: string
+        - name: code
+          in: query
+          description: Cari kabupaten berdasarkan code (opsional)
+          schema:
+            type: string
+        - name: full_code
+          in: query
+          description: Cari kabupaten berdasarkan full_code (opsional)
+          schema:
+            type: string
+        - name: provinsi_id
+          in: query
+          description: Cari kabupaten berdasarkan provinsi_id (opsional)
+          schema:
+            type: integer
+        - name: code_provinsi
+          in: query
+          description: Cari kabupaten berdasarkan kode provinsi (opsional)
+          schema:
+            type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseData'
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/Kabupaten"
+                      
+  /api/kabupaten/{id}:
+    get:
+      tags:
+        - kabupaten
+      summary: Mendapatkan kabupaten berdasarkan ID
+      parameters:
+        - name: id
+          in: path
+          description: ID kabupaten
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: "#/components/schemas/Kabupaten"  # Update the reference
+                  message:
+                    type: string
+                    description: Pesan sukses
+        "404":
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/notfound'
+
+components:
+  schemas:
+  
+    ResponseData :
+      type: object
+      properties:
+        current_page:
+          type: integer
+          description: Nomor halaman saat ini
+        data:
+          type: array
+          items:
+            type: object
+        first_page_url:
+          type: string
+          description: URL ke halaman pertama
+        from:
+          type: integer
+          description: Nomor urut record awal yang diambil
+        last_page:
+          type: integer
+          description: Nomor halaman terakhir
+        last_page_url:
+          type: string
+          description: URL ke halaman terakhir
+        links:
+          type: array
+          items:
+            type: object
+            properties:
+              url:
+                type: string
+                nullable: true
+                description: URL link (opsional)
+              label:
+                type: string
+                description: Label link
+              active:
+                type: boolean
+                description: Status link aktif
+        next_page_url:
+          type: string
+          description: URL ke halaman berikutnya
+        path:
+          type: string
+          description: URL path dari halaman saat ini
+        per_page:
+          type: integer
+          description: Jumlah data per halaman
+        prev_page_url:
+          type: string
+          description: URL ke halaman sebelumnya
+        to:
+          type: integer
+          description: Nomor urut record terakhir yang diambil
+        total:
+          type: integer
+          description: Total jumlah data
+  
+    Provinsi:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          description: ID provinsi
+        name:
+          type: string
+          description: Nama provinsi
+        code:
+          type: string
+          description: Kode provinsi
+        full_code:
+          type: string
+          description: Kode lengkap provinsi
+    
+    Kabupaten:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          description: ID kabupaten
+        type:
+          type: string
+          enum:
+            - Kota
+            - Kabupaten
+          description: Tipe kabupaten (Harus "Kota" atau "Kabupaten")
+        name:
+          type: string
+          description: Nama kabupaten
+        code:
+          type: string
+          description: Kode kabupaten
+        full_code:
+          type: string
+          description: Kode lengkap kabupaten
+        provinsi_id:
+          type: integer
+          format: int64
+          description: ID provinsi
+        provinsi:
+          allOf:
+          - $ref: '#/components/schemas/Provinsi'
+          - type: object
+            description: Data provinsi terkait
+
+    notfound:
+      type: object
+      properties:
+        data:
+          type: string
+          description: Data tidak ditemukan
+        message:
+          type: string
+          description: Pesan bahwa data tidak ditemukan
+    
+    
