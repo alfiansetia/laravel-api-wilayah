@@ -1,21 +1,21 @@
-openapi: 3.0.0
+openapi: 3.0.3
 info:
   version: "1.0.0"
-  title: API Wilayah
-  
+  title: API Wilayah Indonesia
+  description: 
+    Ini adalah dokumentasi api dari aplikasi Api wilayah Indonesia.
+
 tags:
   - name: provinsi
     description: Mendapatkan daftar provinsi
   - name: kabupaten
     description: Mendapatkan daftar kabupaten
-  - name: keccamatan
+  - name: kecamatan
     description: Mendapatkan daftar kecamatan
   - name: kelurahan
     description: Mendapatkan daftar kelurahan
-  
 
 paths:
-
   /api/provinsi:
     get:
       tags:
@@ -27,7 +27,7 @@ paths:
           description: Batasi jumlah data yang diambil (opsional)
           schema:
             type: integer
-            default : 10
+            default: 10
         - name: page
           in: query
           description: Mengambil data di page ke- (opsional)
@@ -55,7 +55,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ResponseData'
+                $ref: "#/components/schemas/ResponseData"
                 properties:
                   data:
                     type: array
@@ -83,7 +83,7 @@ paths:
                 type: object
                 properties:
                   data:
-                    $ref: "#/components/schemas/Provinsi"  # Update the reference
+                    $ref: "#/components/schemas/Provinsi" # Update the reference
                   message:
                     type: string
                     description: Pesan sukses
@@ -95,12 +95,12 @@ paths:
                 type: object
                 properties:
                   data:
-                    type: string  # Perbaiki tipe data menjadi string
+                    type: string # Perbaiki tipe data menjadi string
                     description: Data tidak ditemukan
                   message:
                     type: string
                     description: Pesan bahwa data tidak ditemukan
-  
+
   /api/kabupaten:
     get:
       tags:
@@ -112,7 +112,7 @@ paths:
           description: Batasi jumlah data yang diambil (opsional)
           schema:
             type: integer
-            default : 10
+            default: 10
         - name: page
           in: query
           description: Mengambil data di page ke- (opsional)
@@ -159,13 +159,13 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ResponseData'
+                $ref: "#/components/schemas/ResponseData"
                 properties:
                   data:
                     type: array
                     items:
                       $ref: "#/components/schemas/Kabupaten"
-                      
+
   /api/kabupaten/{id}:
     get:
       tags:
@@ -187,7 +187,7 @@ paths:
                 type: object
                 properties:
                   data:
-                    $ref: "#/components/schemas/Kabupaten"  # Update the reference
+                    $ref: "#/components/schemas/Kabupaten" # Update the reference
                   message:
                     type: string
                     description: Pesan sukses
@@ -196,12 +196,222 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/notfound'
+                $ref: "#/components/schemas/notfound"
+
+  /api/kecamatan:
+    get:
+      tags:
+        - kecamatan
+      summary: Mendapatkan daftar kecamatan
+      parameters:
+        - name: limit
+          in: query
+          description: Batasi jumlah data yang diambil (opsional)
+          schema:
+            type: integer
+            default: 10
+        - name: page
+          in: query
+          description: Mengambil data di page ke- (opsional)
+          schema:
+            type: integer
+            default: 1
+        - name: name
+          in: query
+          description: Cari kecamatan berdasarkan %nama% (opsional)
+          schema:
+            type: string
+        - name: code
+          in: query
+          description: Cari kecamatan berdasarkan code (opsional)
+          schema:
+            type: string
+        - name: full_code
+          in: query
+          description: Cari kecamatan berdasarkan full_code (opsional)
+          schema:
+            type: string
+        - name: kabupaten_id
+          in: query
+          description: Cari kecamatan berdasarkan kabupaten_id (opsional)
+          schema:
+            type: integer
+        - name: code_kabupaten
+          in: query
+          description: Cari kecamatan berdasarkan kode kabupaten (opsional)
+          schema:
+            type: string
+        - name: provinsi_id
+          in: query
+          description: Cari kecamatan berdasarkan provinsi_id (opsional)
+          schema:
+            type: integer
+        - name: code_provinsi
+          in: query
+          description: Cari kecamatan berdasarkan kode provinsi (opsional)
+          schema:
+            type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResponseData"
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/Kecamatan"
+
+  /api/kecamatan/{id}:
+    get:
+      tags:
+        - kecamatan
+      summary: Mendapatkan kecamatan berdasarkan ID
+      parameters:
+        - name: id
+          in: path
+          description: ID kecamatan
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: "#/components/schemas/Kecamatan" # Update the reference
+                  message:
+                    type: string
+                    description: Pesan sukses
+        "404":
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/notfound"
+
+  /api/kelurahan:
+    get:
+      tags:
+        - kelurahan
+      summary: Mendapatkan daftar kelurahan
+      parameters:
+        - name: limit
+          in: query
+          description: Batasi jumlah data yang diambil (opsional)
+          schema:
+            type: integer
+            default: 10
+        - name: page
+          in: query
+          description: Mengambil data di page ke- (opsional)
+          schema:
+            type: integer
+            default: 1
+        - name: name
+          in: query
+          description: Cari kelurahan berdasarkan %nama% (opsional)
+          schema:
+            type: string
+        - name: code
+          in: query
+          description: Cari kelurahan berdasarkan code (opsional)
+          schema:
+            type: string
+        - name: full_code
+          in: query
+          description: Cari kelurahan berdasarkan full_code (opsional)
+          schema:
+            type: string
+        - name: pos_code
+          in: query
+          description: Cari kelurahan berdasarkan pos_code (opsional)
+          schema:
+            type: string
+        - name: kecamatan_id
+          in: query
+          description: Cari kelurahan berdasarkan kecamatan_id (opsional)
+          schema:
+            type: integer
+        - name: code_kecamatan
+          in: query
+          description: Cari kelurahan berdasarkan kode kecamatan (opsional)
+          schema:
+            type: string
+        - name: kabupaten_id
+          in: query
+          description: Cari kelurahan berdasarkan kabupaten_id (opsional)
+          schema:
+            type: integer
+        - name: code_kabupaten
+          in: query
+          description: Cari kelurahan berdasarkan kode kabupaten (opsional)
+          schema:
+            type: string
+        - name: provinsi_id
+          in: query
+          description: Cari kelurahan berdasarkan provinsi_id (opsional)
+          schema:
+            type: integer
+        - name: code_provinsi
+          in: query
+          description: Cari kelurahan berdasarkan kode provinsi (opsional)
+          schema:
+            type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResponseData"
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/Kelurahan"
+
+  /api/kelurahan/{id}:
+    get:
+      tags:
+        - kelurahan
+      summary: Mendapatkan kelurahan berdasarkan ID
+      parameters:
+        - name: id
+          in: path
+          description: ID kelurahan
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: "#/components/schemas/Kelurahan" # Update the reference
+                  message:
+                    type: string
+                    description: Pesan sukses
+        "404":
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/notfound"
 
 components:
   schemas:
-  
-    ResponseData :
+    ResponseData:
       type: object
       properties:
         current_page:
@@ -256,7 +466,7 @@ components:
         total:
           type: integer
           description: Total jumlah data
-  
+
     Provinsi:
       type: object
       properties:
@@ -273,7 +483,7 @@ components:
         full_code:
           type: string
           description: Kode lengkap provinsi
-    
+
     Kabupaten:
       type: object
       properties:
@@ -302,18 +512,68 @@ components:
           description: ID provinsi
         provinsi:
           allOf:
-          - $ref: '#/components/schemas/Provinsi'
-          - type: object
-            description: Data provinsi terkait
+            - $ref: "#/components/schemas/Provinsi"
+            - type: object
+              description: Data provinsi terkait
+
+    Kecamatan:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          description: ID kecamatan
+        name:
+          type: string
+          description: Nama kecamatan
+        code:
+          type: string
+          description: Kode kecamatan
+        full_code:
+          type: string
+          description: Kode lengkap kecamatan
+        kabupaten_id:
+          type: integer
+          format: int64
+          description: ID kabupaten
+        kabupaten:
+          allOf:
+            - $ref: "#/components/schemas/Kabupaten"
+            - type: object
+              description: Data kabupaten terkait
+
+    Kelurahan:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          description: ID kelurahan
+        name:
+          type: string
+          description: Nama kelurahan
+        code:
+          type: string
+          description: Kode kelurahan
+        full_code:
+          type: string
+          description: Kode lengkap kelurahan
+        kecamatan_id:
+          type: integer
+          format: int64
+          description: ID kecamatan
+        kecamatan:
+          allOf:
+            - $ref: "#/components/schemas/Kecamatan"
+            - type: object
+              description: Data kecamatan terkait
 
     notfound:
       type: object
       properties:
         data:
           type: string
-          description: Data tidak ditemukan
+          description: Data tidak ditemukan (null)
         message:
           type: string
           description: Pesan bahwa data tidak ditemukan
-    
-    
