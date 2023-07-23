@@ -4,6 +4,11 @@ info:
   title: API Wilayah Indonesia
   description: 
     Ini adalah dokumentasi api dari aplikasi Api wilayah Indonesia.
+  contact:
+    email: alfian.setia100@gmail.com
+externalDocs:
+  description: Repo Github API Wilayah Indonesia
+  url: http://github.com/alfiansetia/laravel-api-wilayah
 
 tags:
   - name: provinsi
