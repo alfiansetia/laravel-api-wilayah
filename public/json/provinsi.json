@@ -126,61 +126,66 @@
     },
     {
         "id": 26,
+        "name": "Papua Barat Daya",
+        "code": "92"
+    },
+    {
+        "id": 27,
         "name": "Papua Pegunungan",
         "code": "95"
     },
     {
-        "id": 27,
+        "id": 28,
         "name": "Papua Selatan",
         "code": "93"
     },
     {
-        "id": 28,
+        "id": 29,
         "name": "Papua Tengah",
         "code": "94"
     },
     {
-        "id": 29,
+        "id": 30,
         "name": "Riau",
         "code": "14"
     },
     {
-        "id": 30,
+        "id": 31,
         "name": "Sulawesi Barat",
         "code": "76"
     },
     {
-        "id": 31,
+        "id": 32,
         "name": "Sulawesi Selatan",
         "code": "73"
     },
     {
-        "id": 32,
+        "id": 33,
         "name": "Sulawesi Tengah",
         "code": "72"
     },
     {
-        "id": 33,
+        "id": 34,
         "name": "Sulawesi Tenggara",
         "code": "74"
     },
     {
-        "id": 34,
+        "id": 35,
         "name": "Sulawesi Utara",
         "code": "71"
     },
     {
-        "id": 35,
+        "id": 36,
         "name": "Sumatera Barat",
         "code": "13"
     },
     {
-        "id": 36,
+        "id": 37,
         "name": "Sumatera Selatan",
         "code": "16"
     },
     {
-        "id": 37,
+        "id": 38,
         "name": "Sumatera Utara",
         "code": "12"
     }
