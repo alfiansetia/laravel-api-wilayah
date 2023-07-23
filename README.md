@@ -1,6 +1,7 @@
 # API Wilayah Indonesia
 API Wilayah Indonesia adalah project open source laravel untuk akses data Provinsi, Kabupaten, Kecamatan dan Kelurahan di Indonesia.
 Project ini sudah disertai dengan Dokumentasi Api menggunakan Swagger.
+Data dari project ini saya dapatkan dari link github https://github.com/theodevoid/wilayah-nusantara yang kemudian saya buat sendiri menjadi project ini.
 
 ## Requirement
 - PHP 8.1
