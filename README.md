@@ -16,7 +16,7 @@ composer install
 ```
 Buat File .env dan generate key
 ```
-cp env.example .env
+cp .env.example .env
 php artisan key:generate
 ```
 Buka vscode atau kode editor lain untuk ubah konfigurasi db di file .env
