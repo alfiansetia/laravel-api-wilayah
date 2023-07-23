@@ -27,9 +27,6 @@ class ProvinsiController extends Controller
         if ($request->filled('code')) {
             $data->where('code', $request->code);
         }
-        if ($request->filled('full_code')) {
-            $data->where('full_code', $request->full_code);
-        }
         $result = $data->paginate($limit);
         return response()->json($result);
     }

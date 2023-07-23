@@ -49,11 +49,6 @@ paths:
           description: Cari provinsi berdasarkan code (opsional)
           schema:
             type: string
-        - name: full_code
-          in: query
-          description: Cari provinsi berdasarkan full_code (opsional)
-          schema:
-            type: string
       responses:
         "200":
           description: OK
@@ -485,9 +480,6 @@ components:
         code:
           type: string
           description: Kode provinsi
-        full_code:
-          type: string
-          description: Kode lengkap provinsi
 
     Kabupaten:
       type: object
