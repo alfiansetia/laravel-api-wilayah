@@ -48,3 +48,4 @@ Untuk membuka dokumentasi API, buka  http://127.0.0.1:8000/api/documentation
 - [x] Update data terbaru
 - [x] Include kode pos
 - [ ] Include latitude and longitude
+- [ ] Include dasboard to manage data
